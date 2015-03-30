@@ -39,4 +39,17 @@ class Path {
     {
         return new Dir($this->path);
     }
+
+    /**
+     * @param string $path
+     * @return Path
+     */
+    public function join($path)
+    {
+        $lastChar = substr($this->path, strlen($this->path) - 1);
+
+        $this->path .= (ds() == $lastChar) ? $path : (ds() . $path);
+
+        return $this;
+    }
 }

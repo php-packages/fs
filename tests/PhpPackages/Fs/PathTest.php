@@ -27,4 +27,13 @@ class PathTest extends \TestCase {
         expect($file = (new Path('foo'))->asDir())->to_be_a('PhpPackages\\Fs\\Dir');
         expect($file->path())->to_be('foo');
     }
+
+    /**
+     * @test
+     */
+    public function it_joins_two_paths()
+    {
+        expect((new Path('foo'))->join('bar')->path())->to_be('foo' . ds() . 'bar');
+        expect((new Path('foo' . ds()))->join('bar')->path())->to_be('foo' . ds() . 'bar');
+    }
 }
