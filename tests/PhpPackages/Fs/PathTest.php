@@ -22,6 +22,15 @@ class PathTest extends \TestCase {
     /**
      * @test
      */
+    public function it_checks_if_it_is_a_file()
+    {
+        expect((new Path(uniqid()))->isFile())->to_be(false);
+        expect((new Path(__FILE__))->isFile())->to_be(true);
+    }
+
+    /**
+     * @test
+     */
     public function it_returns_Dir_instance()
     {
         expect($file = (new Path('foo'))->asDir())->to_be_a('PhpPackages\\Fs\\Dir');
@@ -35,5 +44,13 @@ class PathTest extends \TestCase {
     {
         expect((new Path('foo'))->join('bar')->path())->to_be('foo' . ds() . 'bar');
         expect((new Path('foo' . ds()))->join('bar')->path())->to_be('foo' . ds() . 'bar');
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_full_path()
+    {
+        expect((new Path(ds() . 'foo'))->full('bar')->path())->to_be(ds() . 'foo');
     }
 }
