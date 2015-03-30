@@ -85,4 +85,12 @@ class Path {
 
         return $this;
     }
+
+    /**
+     * @return object
+     */
+    public function resolve()
+    {
+        return $this;
+    }
 }
