@@ -33,7 +33,7 @@ class Path {
     }
 
     /**
-     * @var bool
+     * @return bool
      */
     public function isFile()
     {
@@ -46,6 +46,14 @@ class Path {
     public function asDir()
     {
         return new Dir($this->path);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDir()
+    {
+        return (is_readable($this->path) and is_dir($this->path));
     }
 
     /**

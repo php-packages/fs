@@ -40,6 +40,15 @@ class PathTest extends \TestCase {
     /**
      * @test
      */
+    public function it_checks_if_it_is_a_directory()
+    {
+        expect((new Path(uniqid()))->isDir())->to_be(false);
+        expect((new Path(__DIR__))->isDir())->to_be(true);
+    }
+
+    /**
+     * @test
+     */
     public function it_joins_two_paths()
     {
         expect((new Path('foo'))->join('bar')->path())->to_be('foo' . ds() . 'bar');
