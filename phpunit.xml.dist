@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<phpunit colors="true" stopOnError="true" stopOnFailure="true">
+    <testsuites>
+        <testsuite name="PhpPackages\\Fs test suite">
+            <directory suffix="Test.php">tests/PhpPackages/Fs</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <blacklist>
+            <directory>vendor</directory>
+        </blacklist>
+
+        <whitelist>
+            <directory>src/PhpPackages/Fs</directory>
+        </whitelist>
+    </filter>
+</phpunit>
+<!-- vim: syntax=xml
+-->
