@@ -31,4 +31,12 @@ class Path {
     {
         return new File($this->path);
     }
+
+    /**
+     * @return Dir
+     */
+    public function asDir()
+    {
+        return new Dir($this->path);
+    }
 }
