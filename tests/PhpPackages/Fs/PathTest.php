@@ -52,5 +52,7 @@ class PathTest extends \TestCase {
     public function it_returns_full_path()
     {
         expect((new Path(ds() . 'foo'))->full('bar')->path())->to_be(ds() . 'foo');
+        expect((new Path('foo'))->full()->path())->to_be(getcwd() . ds() . 'foo');
+        expect((new Path('foo'))->full('bar' . ds())->path())->to_be('bar' . ds() . 'foo');
     }
 }
