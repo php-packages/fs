@@ -72,7 +72,7 @@ class PathTest extends \TestCase {
     {
         $n = ds();
 
-        expect((new Path("..{$n}fs{$n}.{$n}{$n}..{$n}fs"))->full('foo')->resolve()->path())
-            ->to_be("foo{$n}fs");
+        expect((new Path("..{$n}fs{$n}.{$n}{$n}..{$n}fs"))->full()->resolve()->path())
+            ->to_be(getcwd());
     }
 }
