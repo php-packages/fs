@@ -16,7 +16,11 @@
     "autoload": {
         "psr-4": {
             "PhpPackages\\Fs\\": "src/PhpPackages/Fs"
-        }
+        },
+
+        "files": [
+            "src/PhpPackages/Fs/bootstrap.php"
+        ]
     },
 
     "autoload-dev": {
