@@ -71,8 +71,14 @@ class DirTest extends \TestCase {
         expect((new Dir(uniqid()))->remove())->to_be(false);
         expect((new Dir($path = $this->getPath()))->remove())->to_be(false);
 
+        //var_dump(array_keys(
+        //    VFS::inspect(new \org\bovigo\vfs\visitor\vfsStreamStructureVisitor)
+        //    ->getStructure()['fs-test']
+        //));
+
         expect((new Dir($path))->remove(true))->to_be(true);
-        expect((new Path($path))->join(basename(__FILE__))->isReadable())->to_be(false);
+        expect((new Path($path))->isReadable())->to_be(false);
+        // @todo
     }
 
     /**
