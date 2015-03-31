@@ -7,6 +7,11 @@ use RecursiveDirectoryIterator,
 class Dir extends Path {
 
     /**
+     * @var RecursiveIteratorIterator|null
+     */
+    protected $iterator = null;
+
+    /**
      * {@inheritdoc}
      */
     public function __construct($path)
@@ -19,5 +24,13 @@ class Dir extends Path {
                 RecursiveIteratorIterator::CHILD_FIRST
             );
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return (is_null($this->iterator) or count($this->iterator) < 1);
     }
 }
