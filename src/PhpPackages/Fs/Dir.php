@@ -33,4 +33,17 @@ class Dir extends Path {
     {
         return (is_null($this->iterator) or count($this->iterator) < 1);
     }
+
+    /**
+     * @param string $path
+     * @return bool
+     */
+    public function contains($path)
+    {
+        if (is_null($this->iterator)) {
+            return false;
+        }
+
+        return is_readable((new Path($this->path))->join($path)->path());
+    }
 }

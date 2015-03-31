@@ -18,7 +18,8 @@ In active development.
 
 ## Dir
 
-...
+- #isEmpty
+- #contains
 
 ## File
 
