@@ -36,4 +36,12 @@ class DirTest extends \TestCase {
     {
         expect((new Dir(__DIR__))->files())->to_contain(basename(__FILE__));
     }
+
+    /**
+     * @test
+     */
+    public function it_returns_all_dirs()
+    {
+        expect((new Dir(__DIR__))->dirs())->not_to_contain(basename(__FILE__));
+    }
 }

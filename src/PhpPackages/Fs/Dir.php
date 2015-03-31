@@ -78,4 +78,14 @@ class Dir extends Path {
             return $item->isFile();
         });
     }
+
+    /**
+     * @test
+     */
+    public function dirs()
+    {
+        return $this->all(function(SplFileInfo $item) {
+            return $item->isDir();
+        });
+    }
 }

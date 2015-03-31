@@ -22,6 +22,7 @@ In active development.
 - #contains
 - #all
 - #files
+- #dirs
 
 ## File
 
