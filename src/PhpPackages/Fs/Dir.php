@@ -119,7 +119,7 @@ class Dir extends Path {
                 return false;
             }
 
-            $this->doRemove($this->path);
+            $this->doRemove('');
         }
 
         return rmdir($this->path);
@@ -132,6 +132,7 @@ class Dir extends Path {
     protected function doRemove($item)
     {
         $item = (new Path($item))->full($this->path);
+        //var_dump($item->path());
 
         if ($item->isFile()) {
             return unlink($item->path());
