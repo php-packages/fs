@@ -91,6 +91,8 @@ class Path {
      */
     public function resolve()
     {
+        $this->path = realpath($this->path);
+
         return $this;
     }
 }
