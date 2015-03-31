@@ -29,9 +29,7 @@ class Path {
      */
     public function shortPath()
     {
-        $nameParts = explode(ds(), $this->path);
-
-        return end($nameParts);
+        return basename($this->path);
     }
 
     /**
