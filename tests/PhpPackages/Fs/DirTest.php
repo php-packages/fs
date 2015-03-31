@@ -19,4 +19,13 @@ class DirTest extends \TestCase {
         expect((new Dir(uniqid()))->contains(uniqid()))->to_be(false);
         expect((new Dir(__DIR__))->contains(basename(__FILE__)))->to_be(true);
     }
+
+    /**
+     * @test
+     */
+    public function it_returns_all_items()
+    {
+        expect((new Dir(uniqid()))->all())->to_be([]);
+        expect((new Dir(__DIR__))->all())->not_to_be([]);
+    }
 }

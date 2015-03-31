@@ -20,6 +20,7 @@ In active development.
 
 - #isEmpty
 - #contains
+- #all
 
 ## File
 

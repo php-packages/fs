@@ -2,6 +2,7 @@
 
 use RecursiveDirectoryIterator,
     FilesystemIterator,
+    SplFileInfo,
     RecursiveIteratorIterator; // Cool naming.
 
 class Dir extends Path {
@@ -45,5 +46,26 @@ class Dir extends Path {
         }
 
         return is_readable((new Path($this->path))->join($path)->path());
+    }
+
+    /**
+     * @param callable|null $filter
+     * @return array
+     */
+    public function all(callable $filter = null)
+    {
+        $items = [];
+
+        if (is_null($this->iterator)) {
+            return $items;
+        }
+
+        foreach ($this->iterator as $item) {
+            if (is_null($filter) or $filter($item)) {
+                $items[] = $item->getFilename();
+            }
+        }
+
+        return $items;
     }
 }
