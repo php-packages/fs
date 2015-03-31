@@ -69,7 +69,10 @@ class DirTest extends \TestCase {
     public function it_removes_a_directory()
     {
         expect((new Dir(uniqid()))->remove())->to_be(false);
-        expect((new Dir($this->getPath()))->remove())->to_be(false);
+        expect((new Dir($path = $this->getPath()))->remove())->to_be(false);
+
+        expect((new Dir($path))->remove(true))->to_be(true);
+        expect((new Path($path))->join(basename(__FILE__))->isReadable())->to_be(false);
     }
 
     /**

@@ -119,9 +119,27 @@ class Dir extends Path {
                 return false;
             }
 
-            // ...
+            foreach ($this->all() as $item) {
+                $this->doRemove((new Path($item))->full($this->path));
+            }
         }
 
         return rmdir($this->path);
+    }
+
+    /**
+     * @param Path $item
+     * @return void
+     */
+    protected function doRemove(Path $item)
+    {
+        if ($item->isFile()) {
+            unlink($item->path());
+        } else if ($item->isDir()) {
+            // @todo
+            foreach ($item->asDir()->all() as $subItem) {
+                $this->doRemove($subItem);
+            }
+        }
     }
 }
