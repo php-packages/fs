@@ -25,6 +25,16 @@ class Path {
     }
 
     /**
+     * @return string
+     */
+    public function shortPath()
+    {
+        $nameParts = explode(ds(), $this->path);
+
+        return end($nameParts);
+    }
+
+    /**
      * @return File
      */
     public function asFile()

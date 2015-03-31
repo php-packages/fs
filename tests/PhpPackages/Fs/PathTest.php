@@ -13,6 +13,15 @@ class PathTest extends \TestCase {
     /**
      * @test
      */
+    public function it_returns_short_path()
+    {
+        expect((new Path('foo'))->shortPath())->to_be('foo');
+        expect((new Path('foo' . ds() . 'bar'))->shortPath())->to_be('bar');
+    }
+
+    /**
+     * @test
+     */
     public function it_returns_File_instance()
     {
         expect($file = (new Path('foo'))->asFile())->to_be_a('PhpPackages\\Fs\\File');
