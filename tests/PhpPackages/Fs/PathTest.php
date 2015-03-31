@@ -58,7 +58,17 @@ class PathTest extends \TestCase {
     /**
      * @test
      */
-    public function it_checks_if_it_is_a_directory()
+    public function it_checks_if_item_is_readable()
+    {
+        expect((new Path(uniqid()))->isReadable())->to_be(false);
+        expect((new Path(__DIR__))->isReadable())->to_be(true);
+        expect((new Path(__FILE__))->isReadable())->to_be(true);
+    }
+
+    /**
+     * @test
+     */
+    public function it_checks_if_item_is_a_directory()
     {
         expect((new Path(uniqid()))->isDir())->to_be(false);
         expect((new Path(__DIR__))->isDir())->to_be(true);

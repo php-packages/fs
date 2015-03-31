@@ -79,6 +79,14 @@ class Path {
     }
 
     /**
+     * @return bool
+     */
+    public function isReadable()
+    {
+        return is_readable($this->path);
+    }
+
+    /**
      * @param string $path
      * @return object
      */

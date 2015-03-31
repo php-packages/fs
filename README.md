@@ -15,7 +15,7 @@ In active development.
 - #join(path)
 - #full(path)
 - #resolve
-- #readable
+- #isReadable
 
 ## Dir
 

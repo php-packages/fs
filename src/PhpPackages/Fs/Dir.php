@@ -45,16 +45,20 @@ class Dir extends Path {
             return false;
         }
 
-        return is_readable((new Path($this->path))->join($path)->path());
+        return (new Path($this->path))->join($path)->isReadable();
     }
 
     /**
-     * @param string $item
+     * @param string $path
      * @return Path|null
      */
-    public function item($item)
+    public function item($path)
     {
-        // ...
+        if ( ! $this->contains($path)) {
+            return null;
+        }
+
+        return (new Path($this->path))->join($path);
     }
 
     /**
