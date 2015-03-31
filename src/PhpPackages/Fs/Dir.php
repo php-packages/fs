@@ -49,6 +49,15 @@ class Dir extends Path {
     }
 
     /**
+     * @param string $item
+     * @return Path|null
+     */
+    public function item($item)
+    {
+        // ...
+    }
+
+    /**
      * @param callable|null $filter
      * @return array
      */
@@ -80,7 +89,7 @@ class Dir extends Path {
     }
 
     /**
-     * @test
+     * @return array
      */
     public function dirs()
     {

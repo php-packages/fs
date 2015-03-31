@@ -23,6 +23,22 @@ class DirTest extends \TestCase {
     /**
      * @test
      */
+    public function it_returns_items_stored_in_the_directory()
+    {
+        $dir = new Dir(__DIR__);
+
+        expect($dir->item(uniqid()))->to_be(null);
+
+        expect($path = $dir->item(basename(__FILE__)))->to_be_a('PhpPackages\\Fs\\Path');
+        expect($path->path())->to_be(__FILE__);
+
+        // ====================================
+        expect((new Dir(uniqid()))->item(uniqid()))->to_be(null);
+    }
+
+    /**
+     * @test
+     */
     public function it_returns_all_items()
     {
         expect((new Dir(uniqid()))->all())->to_be([]);

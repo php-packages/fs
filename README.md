@@ -15,6 +15,7 @@ In active development.
 - #join(path)
 - #full(path)
 - #resolve
+- #readable
 
 ## Dir
 
@@ -23,6 +24,11 @@ In active development.
 - #all
 - #files
 - #dirs
+- #item
+- #remove?
+- #copy?
+- #move?
+- #save?
 
 ## File
 
