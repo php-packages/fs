@@ -68,4 +68,14 @@ class Dir extends Path {
 
         return $items;
     }
+
+    /**
+     * @return array
+     */
+    public function files()
+    {
+        return $this->all(function(SplFileInfo $item) {
+            return $item->isFile();
+        });
+    }
 }

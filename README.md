@@ -21,6 +21,7 @@ In active development.
 - #isEmpty
 - #contains
 - #all
+- #files
 
 ## File
 
