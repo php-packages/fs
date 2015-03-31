@@ -1,5 +1,7 @@
 <?php namespace PhpPackages\Fs;
 
+use org\bovigo\vfs\vfsStream as VFS;
+
 class DirTest extends \TestCase {
 
     /**
@@ -59,5 +61,26 @@ class DirTest extends \TestCase {
     public function it_returns_all_dirs()
     {
         expect((new Dir(__DIR__))->dirs())->not_to_contain(basename(__FILE__));
+    }
+
+    /**
+     * @test
+     */
+    public function it_removes_a_directory()
+    {
+        expect((new Dir(uniqid()))->remove())->to_be(false);
+        expect((new Dir($this->getPath()))->remove())->to_be(false);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getPath()
+    {
+        $dir = VFS::setup('fs-test');
+
+        VFS::copyFromFileSystem(__DIR__, $dir);
+
+        return VFS::url('fs-test');
     }
 }

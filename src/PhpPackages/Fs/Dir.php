@@ -101,4 +101,27 @@ class Dir extends Path {
             return $item->isDir();
         });
     }
+
+    /**
+     * @param bool $force
+     * @return bool
+     */
+    public function remove($force = false)
+    {
+        if (is_null($this->iterator)) {
+            return false;
+        }
+
+        if ( ! $this->isEmpty()) {
+            // We need to remove all stored files/directories recursively.
+            if ( ! $force) {
+                // Prevent someone from making a bad decision.
+                return false;
+            }
+
+            // ...
+        }
+
+        return rmdir($this->path);
+    }
 }
