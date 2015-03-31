@@ -22,6 +22,15 @@ class PathTest extends \TestCase {
     /**
      * @test
      */
+    public function it_skips_the_last_part()
+    {
+        expect((new Path('foo'))->withoutName())->to_be('foo');
+        expect((new Path('foo' . ds() . 'bar'))->withoutName())->to_be('foo');
+    }
+
+    /**
+     * @test
+     */
     public function it_returns_File_instance()
     {
         expect($file = (new Path('foo'))->asFile())->to_be_a('PhpPackages\\Fs\\File');

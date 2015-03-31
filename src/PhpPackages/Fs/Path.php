@@ -35,6 +35,20 @@ class Path {
     }
 
     /**
+     * @return string
+     */
+    public function withoutName()
+    {
+        $nameParts = explode(ds(), $this->path);
+
+        if (count($nameParts) > 1) {
+            array_pop($nameParts);
+        }
+
+        return implode(ds(), $nameParts);
+    }
+
+    /**
      * @return File
      */
     public function asFile()
