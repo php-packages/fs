@@ -40,4 +40,4 @@ In active development.
 - #lines?
 - #contains?
 - #read
-- #load?
+- #load

@@ -21,4 +21,16 @@ class File extends Path {
 
         return file_get_contents($this->path);
     }
+
+    /**
+     * @return bool|mixed
+     */
+    public function load()
+    {
+        if ( ! $this->isFile()) {
+            return false;
+        }
+
+        return require $this->path;
+    }
 }
