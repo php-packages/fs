@@ -167,13 +167,15 @@ class Dir extends Path {
 
     /**
      * @param string $to
+     * @param string|null $from
      * @return bool
      */
-    protected function doCopy($to)
+    protected function doCopy($to, $from = null)
     {
         $success = true;
+        $from = $from ?: $this->path;
 
-        foreach (path($this->path)->asDir()->all() as $itemPath) {
+        foreach (path($from)->asDir()->all() as $itemPath) {
             $item = path($itemPath)->full($this->path);
 
             if ($item->isFile()) {
@@ -183,7 +185,7 @@ class Dir extends Path {
                 continue;
             }
 
-            $success = $this->doCopy($item->asDir());
+            $success = $this->doCopy($to, path($itemPath)->full($from)->path());
         }
 
         return $success;

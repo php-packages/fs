@@ -51,7 +51,10 @@ class DirTest extends \TestCase {
      */
     public function it_returns_all_files()
     {
-        expect((new Dir(__DIR__))->files())->to_contain(basename(__FILE__));
+        $dir = new Dir(__DIR__);
+
+        expect($dir->files())->not_to_have_length(0);
+        expect($dir->files())->to_include(basename(__FILE__));
     }
 
     /**
@@ -82,7 +85,7 @@ class DirTest extends \TestCase {
         $dir = new Dir($this->getPath(false));
 
         expect($dir->all())->to_have_length(0);
-        expect($dir->copyFrom(__DIR__))->to_be(true);
+        expect($dir->copyFrom(__DIR__ . ds() . '..'))->to_be(true);
         expect($dir->all())->not_to_have_length(0);
     }
 
