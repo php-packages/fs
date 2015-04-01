@@ -31,10 +31,9 @@ class DirTest extends \TestCase {
 
         expect($dir->item(uniqid()))->to_be(null);
 
-        expect($path = $dir->item(basename(__FILE__)))->to_be_a('PhpPackages\\Fs\\Path');
+        $path = $dir->item(basename(__FILE__));
         expect($path->path())->to_be(__FILE__);
 
-        // ====================================
         expect((new Dir(uniqid()))->item(uniqid()))->to_be(null);
     }
 

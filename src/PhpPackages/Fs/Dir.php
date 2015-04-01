@@ -42,7 +42,7 @@ class Dir extends Path {
             return false;
         }
 
-        return (new Path($this->path))->join($path)->isReadable();
+        return $this->replica()->join($path)->isReadable();
     }
 
     /**
@@ -55,7 +55,7 @@ class Dir extends Path {
             return null;
         }
 
-        return (new Path($this->path))->join($path);
+        return $this->replica()->join($path);
     }
 
     /**
@@ -116,7 +116,7 @@ class Dir extends Path {
                 return false;
             }
 
-            $this->doRemove('');
+            $this->doRemove();
         }
 
         $this->createIterator();
@@ -128,9 +128,9 @@ class Dir extends Path {
      * @param string $item
      * @return void
      */
-    protected function doRemove($item)
+    protected function doRemove($item = '')
     {
-        $item = (new Path($item))->full($this->path);
+        $item = path($item)->full($this->path);
 
         if ($item->isFile()) {
             return unlink($item->path());
@@ -156,7 +156,7 @@ class Dir extends Path {
      */
     public function copyFrom($path)
     {
-        return (new static($path))->copyTo($this->path);
+        return $this->replica()->copyTo($this->path);
     }
 
     /**
@@ -166,17 +166,13 @@ class Dir extends Path {
     protected function doCopy($to)
     {
         $success = true;
-        return $success; // @todo
 
-        foreach (path($this->path)->asDir()->all() as $item) {
-            $item = (new Path($item))->full($this->path);
+        foreach (path($this->path)->asDir()->all() as $itemPath) {
+            $item = path($itemPath)->full($this->path);
 
             if ($item->isFile()) {
                 // Attempt to copy.
-                $success = copy(
-                    $item->path(),
-                    (new Path($to))->join($item->shortPath())->path()
-                );
+                $success = copy($item->path(), path($to)->join($itemPath)->path());
 
                 continue;
             }

@@ -112,6 +112,10 @@ class PathTest extends \TestCase {
      */
     public function it_clones_the_instance()
     {
-        expect((new Path('foo'))->replica()->path())->to_be('foo');
+        $path = new Path('foo');
+        $replica = $path->replica();
+
+        expect($path)->not_to_be($replica);
+        expect($path->path())->to_be($replica->path());
     }
 }
