@@ -176,7 +176,7 @@ class Dir extends Path {
         $from = $from ?: $this->path;
 
         foreach (path($from)->asDir()->all() as $itemPath) {
-            $item = path($itemPath)->full($this->path);
+            $item = path($itemPath)->full($from);
 
             if ($item->isFile()) {
                 // Attempt to copy.
