@@ -7,7 +7,10 @@ class PathTest extends \TestCase {
      */
     public function it_returns_passed_path_value()
     {
-        expect((new Path('foo'))->path())->to_be('foo');
+        $path = new Path('foo');
+
+        expect($path->path())->to_be('foo');
+        expect((string) $path)->to_be('foo');
     }
 
     /**

@@ -27,6 +27,14 @@ class Path {
     /**
      * @return string
      */
+    public function __toString()
+    {
+        return (string) $this->path;
+    }
+
+    /**
+     * @return string
+     */
     public function shortPath()
     {
         return basename($this->path);
