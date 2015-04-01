@@ -12,8 +12,8 @@ In active development.
 - #isFile
 - #asDir
 - #isDir
-- #join(path)
-- #full(path)
+- #join
+- #full
 - #resolve
 - #isReadable
 - #replica
@@ -35,4 +35,8 @@ In active development.
 
 ## File
 
-...
+- #isEmpty
+- #lines
+- #contains
+- #read
+- #load
