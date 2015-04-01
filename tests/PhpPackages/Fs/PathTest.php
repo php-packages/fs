@@ -106,4 +106,12 @@ class PathTest extends \TestCase {
         expect((new Path("..{$n}fs{$n}.{$n}{$n}..{$n}fs"))->full()->resolve()->path())
             ->to_be(getcwd());
     }
+
+    /**
+     * @test
+     */
+    public function it_clones_the_instance()
+    {
+        expect((new Path('foo'))->replica()->path())->to_be('foo');
+    }
 }

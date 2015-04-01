@@ -16,6 +16,7 @@ In active development.
 - #full(path)
 - #resolve
 - #isReadable
+- #replica
 
 ## Dir
 

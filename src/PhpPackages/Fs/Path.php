@@ -133,4 +133,12 @@ class Path {
 
         return $this;
     }
+
+    /**
+     * @return object
+     */
+    public function replica()
+    {
+        return new static($this->path);
+    }
 }
