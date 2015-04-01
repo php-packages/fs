@@ -119,8 +119,6 @@ class Dir extends Path {
             $this->doRemove();
         }
 
-        $this->createIterator();
-
         return rmdir($this->path);
     }
 
@@ -147,7 +145,11 @@ class Dir extends Path {
      */
     public function copyTo($path)
     {
-        return $this->doCopy($path);
+        $result = $this->doCopy($path);
+
+        $this->createIterator();
+
+        return $result;
     }
 
     /**
@@ -156,7 +158,7 @@ class Dir extends Path {
      */
     public function copyFrom($path)
     {
-        return $this->replica()->copyTo($this->path);
+        return path($path)->asDir()->copyTo($this->path);
     }
 
     /**
