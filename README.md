@@ -29,7 +29,8 @@ In active development.
 - #remove
 - #copyFrom
 - #copyTo
-- #move?
+- #moveTo
+- #make
 
 ## File
 

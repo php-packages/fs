@@ -33,6 +33,22 @@ class Dir extends Path {
     }
 
     /**
+     * @return bool
+     */
+    public function make()
+    {
+        if ( ! $this->isReadable()) {
+            $result = mkdir($this->path);
+
+            $this->createIterator();
+
+            return $result;
+        }
+
+        return false;
+    }
+
+    /**
      * @param string $path
      * @return bool
      */
@@ -189,6 +205,15 @@ class Dir extends Path {
         }
 
         return $success;
+    }
+
+    /**
+     * @param string $path
+     * @return bool
+     */
+    public function moveTo($path)
+    {
+        return ($this->copyTo($path) and $this->remove(true));
     }
 
     /**

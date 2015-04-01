@@ -90,6 +90,25 @@ class DirTest extends \TestCase {
     }
 
     /**
+     * @test
+     */
+    public function it_moves_a_directory()
+    {
+        $dir = new Dir($this->getPath());
+
+        // Prepare another directory.
+        VFS::setup('fs-test2');
+
+        $anotherDir = new Dir(VFS::url('fs-test2'));
+
+        // Test.
+        //expect($anotherDir->all())->to_have_length(0);
+        //expect($dir->all())->not_to_have_length(0);
+        //expect($dir->moveTo($anotherDir->path()))->to_be(true);
+        //expect($anotherDir->all())->not_to_have_length(0);
+    }
+
+    /**
      * @param bool $copy
      * @return string
      */
