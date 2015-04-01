@@ -76,6 +76,19 @@ class DirTest extends \TestCase {
     }
 
     /**
+     * @test
+     */
+    public function it_copies_a_directory()
+    {
+        //$dir = new Dir($this->getPath());
+        //$dir->remove(true);
+
+        //expect($dir->all())->to_have_length(0);
+        //expect($dir->copyFrom(__DIR__))->to_be(true);
+        //expect($dir->all())->not_to_have_length(0);
+    }
+
+    /**
      * @return string
      */
     protected function getPath()

@@ -20,10 +20,7 @@ class Dir extends Path {
         parent::__construct($path);
 
         if ($this->isDir()) {
-            $this->iterator = new RecursiveIteratorIterator(
-                new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS),
-                RecursiveIteratorIterator::CHILD_FIRST
-            );
+            $this->createIterator();
         }
     }
 
@@ -122,6 +119,8 @@ class Dir extends Path {
             $this->doRemove('');
         }
 
+        $this->createIterator();
+
         return rmdir($this->path);
     }
 
@@ -132,15 +131,70 @@ class Dir extends Path {
     protected function doRemove($item)
     {
         $item = (new Path($item))->full($this->path);
-        //var_dump($item->path());
 
         if ($item->isFile()) {
             return unlink($item->path());
         }
 
-        // @todo
         foreach ($item->asDir()->all() as $subItem) {
             $this->doRemove($subItem);
         }
+    }
+
+    /**
+     * @param string $path
+     * @return bool
+     */
+    public function copyTo($path)
+    {
+        return $this->doCopy($path);
+    }
+
+    /**
+     * @param string $path
+     * @return bool
+     */
+    public function copyFrom($path)
+    {
+        return (new static($path))->copyTo($this->path);
+    }
+
+    /**
+     * @param string $to
+     * @return bool
+     */
+    protected function doCopy($to)
+    {
+        $success = true;
+        return $success; // @todo
+
+        foreach (path($this->path)->asDir()->all() as $item) {
+            $item = (new Path($item))->full($this->path);
+
+            if ($item->isFile()) {
+                // Attempt to copy.
+                $success = copy(
+                    $item->path(),
+                    (new Path($to))->join($item->shortPath())->path()
+                );
+
+                continue;
+            }
+
+            $success = $this->doCopy($item->asDir());
+        }
+
+        return $success;
+    }
+
+    /**
+     * @return void
+     */
+    protected function createIterator()
+    {
+        $this->iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($this->path, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
     }
 }

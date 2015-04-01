@@ -26,9 +26,9 @@ In active development.
 - #dirs
 - #item
 - #remove
-- #copy?
+- #copyFrom
+- #copyTo
 - #move?
-- #save?
 
 ## File
 
