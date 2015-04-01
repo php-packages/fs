@@ -158,7 +158,11 @@ class Dir extends Path {
      */
     public function copyFrom($path)
     {
-        return path($path)->asDir()->copyTo($this->path);
+        $result = path($path)->asDir()->copyTo($this->path);
+
+        $this->createIterator();
+
+        return $result;
     }
 
     /**

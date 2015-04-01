@@ -79,26 +79,24 @@ class DirTest extends \TestCase {
      */
     public function it_copies_a_directory()
     {
-        $dir = new Dir($this->getPath());
-        $dir->remove(true);
+        $dir = new Dir($this->getPath(false));
 
         expect($dir->all())->to_have_length(0);
-
-        // Recreate the directory.
-        VFS::setup('fs-test');
-
         expect($dir->copyFrom(__DIR__))->to_be(true);
         expect($dir->all())->not_to_have_length(0);
     }
 
     /**
+     * @param bool $copy
      * @return string
      */
-    protected function getPath()
+    protected function getPath($copy = true)
     {
         $dir = VFS::setup('fs-test');
 
-        VFS::copyFromFileSystem(__DIR__, $dir);
+        if ($copy) {
+            VFS::copyFromFileSystem(__DIR__, $dir);
+        }
 
         return VFS::url('fs-test');
     }
