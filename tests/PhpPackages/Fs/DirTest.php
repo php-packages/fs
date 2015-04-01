@@ -94,18 +94,19 @@ class DirTest extends \TestCase {
      */
     public function it_moves_a_directory()
     {
-        $dir = new Dir($this->getPath());
+        $dir = new Dir('/tmp/' . uniqid());
+
+        expect($dir->make())->to_be(true);
+        expect($dir->copyFrom(__DIR__))->to_be(true);
 
         // Prepare another directory.
-        VFS::setup('fs-test2');
-
-        $anotherDir = new Dir(VFS::url('fs-test2'));
+        $anotherDir = new Dir($this->getPath(false));
 
         // Test.
-        //expect($anotherDir->all())->to_have_length(0);
-        //expect($dir->all())->not_to_have_length(0);
-        //expect($dir->moveTo($anotherDir->path()))->to_be(true);
-        //expect($anotherDir->all())->not_to_have_length(0);
+        expect($anotherDir->all())->to_have_length(0);
+        expect($dir->all())->not_to_have_length(0);
+        expect($dir->moveTo($anotherDir->path()))->to_be(true);
+        expect($anotherDir->reload()->all())->not_to_have_length(0);
     }
 
     /**

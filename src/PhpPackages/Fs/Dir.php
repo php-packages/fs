@@ -213,7 +213,19 @@ class Dir extends Path {
      */
     public function moveTo($path)
     {
+        path($path)->asDir()->make();
+
         return ($this->copyTo($path) and $this->remove(true));
+    }
+
+    /**
+     * @return object
+     */
+    public function reload()
+    {
+        $this->createIterator();
+
+        return $this;
     }
 
     /**

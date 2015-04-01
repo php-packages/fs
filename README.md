@@ -31,6 +31,7 @@ In active development.
 - #copyTo
 - #moveTo
 - #make
+- #reload
 
 ## File
 
