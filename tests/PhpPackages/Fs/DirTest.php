@@ -109,6 +109,22 @@ class DirTest extends \TestCase {
     }
 
     /**
+     * @test
+     */
+    public function it_makes_a_directory()
+    {
+        $dir = new Dir($this->getPath(false));
+
+        expect($dir->isReadable())->to_be(true);
+        expect($dir->remove(true))->to_be(true);
+        expect($dir->isReadable())->to_be(false);
+        expect($dir->make())->to_be(true);
+        expect($dir->isReadable())->to_be(true);
+
+        expect($dir->make())->to_be(false);
+    }
+
+    /**
      * @param bool $copy
      * @return string
      */
