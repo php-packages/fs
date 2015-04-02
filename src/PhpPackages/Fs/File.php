@@ -66,4 +66,19 @@ class File extends Path {
     {
         return ($this->isFile() and strpos($this->read(), $something) !== false);
     }
+
+    /**
+     * @param string|null $format
+     * @return null|int|string
+     */
+    public function lastModified($format = null)
+    {
+        if ( ! $this->isFile()) {
+            return null;
+        }
+
+        $time = filemtime($this->path);
+
+        return is_null($format) ? $time : date($format, $time);
+    }
 }

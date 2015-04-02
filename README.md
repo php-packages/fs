@@ -50,4 +50,4 @@ In active development.
 - #remove?
 - #copy?
 - #move?
-- #lastModified?
+- #lastModified

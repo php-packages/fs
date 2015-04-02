@@ -57,4 +57,14 @@ class FileTest extends \TestCase {
 
         expect((new File(__FILE__))->contains('contains'))->to_be(true);
     }
+
+    /**
+     * @test
+     */
+    public function it_returns_last_modification_time()
+    {
+        expect((new File(uniqid()))->lastModified())->to_be(null);
+        expect((new File(__FILE__))->lastModified())->to_be_an('integer');
+        expect((new File(__FILE__))->lastModified('H:i:s Y-m-d'))->to_be_a('string');
+    }
 }
