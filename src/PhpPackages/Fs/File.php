@@ -64,6 +64,6 @@ class File extends Path {
      */
     public function contains($something)
     {
-
+        return ($this->isFile() and strpos($this->read(), $something) !== false);
     }
 }

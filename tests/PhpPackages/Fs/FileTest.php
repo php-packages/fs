@@ -46,4 +46,15 @@ class FileTest extends \TestCase {
         expect((new File(uniqid()))->size())->to_be(0);
         expect((new File(__FILE__))->size())->to_be_above(0);
     }
+
+    /**
+     * @test
+     */
+    public function it_tells_whether_given_file_contains_some_string()
+    {
+        expect((new File(uniqid()))->contains('foo'))->to_be(false);
+        expect((new File(__FILE__))->contains(uniqid()))->to_be(false);
+
+        expect((new File(__FILE__))->contains('contains'))->to_be(true);
+    }
 }
