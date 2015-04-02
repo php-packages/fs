@@ -1,5 +1,7 @@
 <?php namespace PhpPackages\Fs;
 
+use org\bovigo\vfs\vfsStream as VFS;
+
 class FileTest extends \TestCase {
 
     /**
@@ -84,5 +86,32 @@ class FileTest extends \TestCase {
     {
         expect((new File(uniqid()))->search('/^(.+)$/'))->to_be([]);
         expect((new File(__FILE__))->search('/^(.+)$/'))->not_to_have_length(0);
+    }
+
+    /**
+     * @test
+     */
+    public function it_rewrites_file_contents()
+    {
+        $file = new File($this->setUpVfs() . ds() . 'example');
+
+        expect($file->rewrite('foo'))->to_be(true);
+        expect($file->read())->to_be('foo');
+
+        expect($file->rewrite('bar'))->to_be(true);
+        expect($file->read())->to_be('bar');
+
+        expect($file->truncate())->to_be(true);
+        expect($file->read())->to_be('');
+    }
+
+    /**
+     * @return string
+     */
+    protected function setUpVfs()
+    {
+        VFS::setup('test');
+
+        return VFS::url('test');
     }
 }
