@@ -106,6 +106,23 @@ class FileTest extends \TestCase {
     }
 
     /**
+     * @test
+     */
+    public function it_appends_and_prepends_contents()
+    {
+        $file = new File($this->setUpVfs() . ds() . 'example');
+
+        expect($file->rewrite('foo'))->to_be(true);
+        expect($file->read())->to_be('foo');
+
+        expect($file->append('bar'))->to_be(true);
+        expect($file->read())->to_be('foobar');
+
+        expect($file->prepend('baz'))->to_be(true);
+        expect($file->read())->to_be('bazfoobar');
+    }
+
+    /**
      * @return string
      */
     protected function setUpVfs()

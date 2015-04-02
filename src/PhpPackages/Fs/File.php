@@ -52,6 +52,24 @@ class File extends Path {
     }
 
     /**
+     * @param string $contents
+     * @return bool
+     */
+    public function append($contents)
+    {
+        return $this->rewrite($this->read() . $contents);
+    }
+
+    /**
+     * @param string $contents
+     * @return bool
+     */
+    public function prepend($contents)
+    {
+        return $this->rewrite($contents . $this->read());
+    }
+
+    /**
      * @return array
      */
     public function lines()

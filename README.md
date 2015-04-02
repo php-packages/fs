@@ -42,8 +42,8 @@ In active development.
 - #read
 - #load
 - #rewrite
-- #append?
-- #prepend?
+- #append
+- #prepend
 - #truncate
 - #matches
 - #search
