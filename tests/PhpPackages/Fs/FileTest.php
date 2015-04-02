@@ -123,6 +123,21 @@ class FileTest extends \TestCase {
     }
 
     /**
+     * @test
+     */
+    public function it_removes_a_file()
+    {
+        expect((new File(uniqid()))->remove())->to_be(false);
+
+        $file = new File($this->setUpVfs() . ds() . 'example');
+
+        expect($file->rewrite('foo'))->to_be(true);
+        expect($file->read())->to_be('foo');
+        expect($file->remove())->to_be(true);
+        expect($file->read())->to_be(null);
+    }
+
+    /**
      * @return string
      */
     protected function setUpVfs()

@@ -47,7 +47,7 @@ In active development.
 - #truncate
 - #matches
 - #search
-- #remove?
+- #remove
 - #copy?
 - #move?
 - #lastModified

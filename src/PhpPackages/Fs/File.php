@@ -70,6 +70,18 @@ class File extends Path {
     }
 
     /**
+     * @return bool
+     */
+    public function remove()
+    {
+        if ( ! $this->isFile()) {
+            return false;
+        }
+
+        return unlink($this->path);
+    }
+
+    /**
      * @return array
      */
     public function lines()
