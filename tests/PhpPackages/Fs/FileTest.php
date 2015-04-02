@@ -76,4 +76,13 @@ class FileTest extends \TestCase {
         expect((new File(uniqid()))->matches('/^(.+)$/'))->to_be(false);
         expect((new File(__FILE__))->matches('/class\s(\w+)/'))->to_be(true);
     }
+
+    /**
+     * @test
+     */
+    public function it_performs_searching_in_file_contents()
+    {
+        expect((new File(uniqid()))->search('/^(.+)$/'))->to_be([]);
+        expect((new File(__FILE__))->search('/^(.+)$/'))->not_to_have_length(0);
+    }
 }

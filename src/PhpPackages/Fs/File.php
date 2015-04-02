@@ -83,11 +83,28 @@ class File extends Path {
     }
 
     /**
-     * @param string $something
+     * @param string $regex
      * @return bool
      */
-    public function matches($something)
+    public function matches($regex)
     {
-        return ($this->isFile() and (boolean) preg_match($something, $this->read()));
+        return ($this->isFile() and (boolean) preg_match($regex, $this->read()));
+    }
+
+    /**
+     * @param string $regex
+     * @return array
+     */
+    public function search($regex)
+    {
+        $matches = [];
+
+        if ( ! $this->isFile()) {
+            return $matches;
+        }
+
+        preg_match_all($regex, $this->read(), $matches);
+
+        return $matches;
     }
 }
