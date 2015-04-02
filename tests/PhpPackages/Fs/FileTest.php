@@ -37,4 +37,13 @@ class FileTest extends \TestCase {
         expect((new File(uniqid()))->lines())->to_be([]);
         expect((new File(__FILE__))->lines())->not_to_have_length(0);
     }
+
+    /**
+     * @test
+     */
+    public function it_returns_file_size()
+    {
+        expect((new File(uniqid()))->size())->to_be(0);
+        expect((new File(__FILE__))->size())->to_be_above(0);
+    }
 }

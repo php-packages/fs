@@ -36,7 +36,7 @@ In active development.
 ## File
 
 - #isEmpty
-- #size?
+- #size
 - #lines
 - #contains?
 - #read

@@ -45,4 +45,16 @@ class File extends Path {
 
         return file($this->path);
     }
+
+    /**
+     * @return int
+     */
+    public function size()
+    {
+        if ( ! $this->isFile()) {
+            return 0;
+        }
+
+        return filesize($this->path);
+    }
 }
