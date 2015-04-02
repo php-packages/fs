@@ -67,4 +67,13 @@ class FileTest extends \TestCase {
         expect((new File(__FILE__))->lastModified())->to_be_an('integer');
         expect((new File(__FILE__))->lastModified('H:i:s Y-m-d'))->to_be_a('string');
     }
+
+    /**
+     * @test
+     */
+    public function it_tells_whether_file_contents_matches_given_regular_expression()
+    {
+        expect((new File(uniqid()))->matches('/^(.+)$/'))->to_be(false);
+        expect((new File(__FILE__))->matches('/class\s(\w+)/'))->to_be(true);
+    }
 }

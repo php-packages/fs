@@ -45,7 +45,7 @@ In active development.
 - #append?
 - #prepend?
 - #truncate?
-- #matches?
+- #matches
 - #search?
 - #remove?
 - #copy?

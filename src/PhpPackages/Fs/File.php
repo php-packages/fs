@@ -81,4 +81,13 @@ class File extends Path {
 
         return is_null($format) ? $time : date($format, $time);
     }
+
+    /**
+     * @param string $something
+     * @return bool
+     */
+    public function matches($something)
+    {
+        return ($this->isFile() and (boolean) preg_match($something, $this->read()));
+    }
 }
