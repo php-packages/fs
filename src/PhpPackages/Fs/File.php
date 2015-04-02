@@ -33,4 +33,16 @@ class File extends Path {
 
         return require $this->path;
     }
+
+    /**
+     * @return array
+     */
+    public function lines()
+    {
+        if ( ! $this->isFile()) {
+            return [];
+        }
+
+        return file($this->path);
+    }
 }

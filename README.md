@@ -37,7 +37,7 @@ In active development.
 
 - #isEmpty
 - #size?
-- #lines?
+- #lines
 - #contains?
 - #read
 - #load

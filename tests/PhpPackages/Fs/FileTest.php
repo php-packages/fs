@@ -28,4 +28,13 @@ class FileTest extends \TestCase {
         expect((new File(uniqid()))->load())->to_be(false);
         expect((new File(FS_FIXTURES . ds() . 'data.php'))->load())->to_be_an('array');
     }
+
+    /**
+     * @test
+     */
+    public function it_splits_file_contents_into_lines()
+    {
+        expect((new File(uniqid()))->lines())->to_be([]);
+        expect((new File(__FILE__))->lines())->not_to_have_length(0);
+    }
 }
