@@ -48,7 +48,9 @@ class File extends Path {
      */
     public function truncate()
     {
-        return ! $this->rewrite('');
+        $this->rewrite('');
+
+        return $this->read() == '';
     }
 
     /**
