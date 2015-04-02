@@ -38,6 +38,16 @@ In active development.
 - #isEmpty
 - #size
 - #lines
-- #contains?
+- #contains
 - #read
 - #load
+- #rewrite?
+- #append?
+- #prepend?
+- #truncate?
+- #matches?
+- #search?
+- #remove?
+- #copy?
+- #move?
+- #lastModified?

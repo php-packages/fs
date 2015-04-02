@@ -57,4 +57,13 @@ class File extends Path {
 
         return filesize($this->path);
     }
+
+    /**
+     * @param string $something
+     * @return bool
+     */
+    public function contains($something)
+    {
+
+    }
 }
