@@ -35,6 +35,23 @@ class File extends Path {
     }
 
     /**
+     * @param string $contents
+     * @return bool
+     */
+    public function rewrite($contents)
+    {
+        return (boolean) file_put_contents($this->path, $contents);
+    }
+
+    /**
+     * @return bool
+     */
+    public function truncate()
+    {
+        return $this->rewrite('');
+    }
+
+    /**
      * @return array
      */
     public function lines()

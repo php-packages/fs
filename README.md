@@ -41,10 +41,10 @@ In active development.
 - #contains
 - #read
 - #load
-- #rewrite?
+- #rewrite
 - #append?
 - #prepend?
-- #truncate?
+- #truncate
 - #matches
 - #search
 - #remove?
