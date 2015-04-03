@@ -138,6 +138,28 @@ class FileTest extends \TestCase {
     }
 
     /**
+     * @test
+     */
+    public function it_copies_and_moves_files()
+    {
+        $dir = $this->setUpVfs() . ds();
+        $file = new File($dir . 'foo');
+
+        expect($file->copyTo($dir . 'bar'))->to_be(false);
+        expect($file->rewrite('123'))->to_be(true);
+        expect($file->copyTo($dir . 'bar'))->to_be(true);
+
+        $anotherFile = new File($dir . 'baz');
+
+        expect($anotherFile->read())->to_be(null);
+        expect($file->moveTo($dir . 'baz'))->to_be(true);
+        expect($anotherFile->read())->to_be('123');
+
+        // Can't move, the original file was removed.
+        expect($file->moveTo($dir . 'baz'))->to_be(false);
+    }
+
+    /**
      * @return string
      */
     protected function setUpVfs()
