@@ -7,7 +7,7 @@ class File extends Path {
      */
     public function isEmpty()
     {
-        return ( ! $this->isReadable() or filesize($this->path) < 1);
+        return ( ! $this->isReadable() or $this->read() === '');
     }
 
     /**
@@ -50,7 +50,7 @@ class File extends Path {
     {
         $this->rewrite('');
 
-        return $this->read() == '';
+        return $this->read() === '';
     }
 
     /**
