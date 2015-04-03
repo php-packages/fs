@@ -5,9 +5,9 @@ class PathTest extends \TestCase {
     /**
      * @test
      */
-    public function it_returns_passed_path_value()
+    public function it_returns_the_passed_path_value()
     {
-        $path = new Path('foo');
+        $path = path('foo');
 
         expect($path->path())->to_be('foo');
         expect((string) $path)->to_be('foo');
@@ -42,8 +42,8 @@ class PathTest extends \TestCase {
      */
     public function it_returns_short_path()
     {
-        expect((new Path('foo'))->short())->to_be('foo');
-        expect((new Path(ds('foo', 'bar')))->short())->to_be('bar');
+        expect(path('foo')->short())->to_be('foo');
+        expect(path(ds('foo', 'bar'))->short())->to_be('bar');
     }
 
     /**
@@ -51,7 +51,7 @@ class PathTest extends \TestCase {
      */
     public function it_shortens_the_path()
     {
-        expect((new Path(ds('foo', 'bar')))->shorten()->path())->to_be('bar');
+        expect(path(ds('foo', 'bar'))->shorten()->path())->to_be('bar');
     }
 
     /**
@@ -59,23 +59,25 @@ class PathTest extends \TestCase {
      */
     public function it_skips_the_name()
     {
-        expect((new Path('foo'))->skipName())->to_be('foo');
-        expect((new Path(ds('foo', 'bar')))->skipName())->to_be('foo');
+        expect(path('foo')->skipName())->to_be('foo');
+        expect(path(ds('foo', 'bar'))->skipName())->to_be('foo');
     }
 
     /**
      * @test
      */
-    public function it_returns_File_instance()
+    public function it_returns_a_File_instance()
     {
-        expect($file = (new Path('foo'))->asFile())->to_be_a('PhpPackages\\Fs\\File');
+        $file = path('foo')->asFile();
+
+        expect($file->asFile())->to_be_a('PhpPackages\\Fs\\File');
         expect($file->path())->to_be('foo');
     }
 
     /**
      * @test
      */
-    public function it_checks_if_it_is_a_file()
+    public function it_detects_a_file()
     {
         expect((new Path(uniqid()))->isFile())->to_be(false);
         expect((new Path(__FILE__))->isFile())->to_be(true);
@@ -112,20 +114,20 @@ class PathTest extends \TestCase {
     /**
      * @test
      */
-    public function it_joins_two_paths()
+    public function it_joins_two_path_strings()
     {
-        expect((new Path('foo'))->join('bar')->path())->to_be('foo' . ds() . 'bar');
-        expect((new Path('foo' . ds()))->join('bar')->path())->to_be('foo' . ds() . 'bar');
+        expect(path('foo')->join('bar')->path())->to_be(ds('foo', 'bar'));
+        expect(path('foo' . ds())->join('bar')->path())->to_be(ds('foo', 'bar'));
     }
 
     /**
      * @test
      */
-    public function it_returns_full_path()
+    public function it_returns_a_full_path()
     {
-        expect((new Path(ds() . 'foo'))->full('bar')->path())->to_be(ds() . 'foo');
-        expect((new Path('foo'))->full()->path())->to_be(getcwd() . ds() . 'foo');
-        expect((new Path('foo'))->full('bar' . ds())->path())->to_be('bar' . ds() . 'foo');
+        expect(path(ds() . 'foo')->full('bar')->path())->to_be(ds() . 'foo');
+        expect(path('foo')->full()->path())->to_be(ds(getcwd(), 'foo'));
+        expect(path('foo')->full('bar' . ds())->path())->to_be(ds('bar', 'foo'));
     }
 
     /**
@@ -133,9 +135,7 @@ class PathTest extends \TestCase {
      */
     public function it_resolves_path()
     {
-        $n = ds();
-
-        expect((new Path("..{$n}fs{$n}.{$n}{$n}..{$n}fs"))->full()->resolve()->path())
+        expect(path(ds('..', 'fs', '.', '..', 'fs'))->full()->resolve()->path())
             ->to_be(getcwd());
     }
 
@@ -144,7 +144,7 @@ class PathTest extends \TestCase {
      */
     public function it_clones_the_instance()
     {
-        $path = new Path('foo');
+        $path = path('foo');
         $replica = $path->replica();
 
         expect($path)->not_to_be($replica);
