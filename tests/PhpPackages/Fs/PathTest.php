@@ -16,6 +16,22 @@ class PathTest extends \TestCase {
     /**
      * @test
      */
+    public function it_detects_absolute_and_relative_paths()
+    {
+        $path = path('foo');
+
+        expect($path->isRelative())->to_be(true);
+        expect($path->isAbsolute())->to_be(false);
+
+        $path = path(ds() . 'foo');
+
+        expect($path->isRelative())->to_be(false);
+        expect($path->isAbsolute())->to_be(true);
+    }
+
+    /**
+     * @test
+     */
     public function it_returns_short_path()
     {
         expect((new Path('foo'))->short())->to_be('foo');

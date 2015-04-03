@@ -33,6 +33,22 @@ class Path {
     }
 
     /**
+     * @return bool
+     */
+    public function isAbsolute()
+    {
+        return $this->path[0] == ds();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRelative()
+    {
+        return ! $this->isAbsolute();
+    }
+
+    /**
      * @return string
      */
     public function short()

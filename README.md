@@ -17,6 +17,8 @@ In active development.
 - #full
 - #resolve
 - #isReadable
+- #isRelative
+- #isAbsolute
 - #replica
 
 ## Dir
