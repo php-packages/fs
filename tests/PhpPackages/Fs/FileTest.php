@@ -28,7 +28,11 @@ class FileTest extends \TestCase {
     public function it_loads_a_PHP_file()
     {
         expect((new File(uniqid()))->load())->to_be(false);
-        expect((new File(FS_FIXTURES . ds() . 'data.php'))->load())->to_be_an('array');
+
+        $file = new File($this->setUpVfs() . ds() . 'example');
+
+        expect($file->rewrite('<?php return 123;'))->to_be(true);
+        expect($file->load())->to_be(123);
     }
 
     /**

@@ -5,11 +5,8 @@ class BootstrapTest extends \TestCase {
     /**
      * @test
      */
-    public function fs_provides_cool_helper_functions_and_constants()
+    public function it_provides_helper_functions()
     {
-        expect(defined('DS'))->to_be(true);
-        expect(DS)->to_be(DIRECTORY_SEPARATOR);
-
         expect(function_exists('ds'))->to_be(true);
         expect(ds())->to_be(DIRECTORY_SEPARATOR);
 
