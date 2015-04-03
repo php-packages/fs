@@ -29,7 +29,7 @@ class TestCase extends Essence\Extensions\PhpunitExtension {
         $class = $this->getTestedClass();
 
         if (is_null($path)) {
-            $path = strpos($class, 'Dir') ? __DIR__ : __FILE__;
+            $path = __FILE__;
         }
 
         return new $class($path);

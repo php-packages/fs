@@ -9,8 +9,8 @@ class FileTest extends \TestCase {
      */
     public function it_tells_whether_a_file_is_empty()
     {
-        expect((new File(uniqid()))->isEmpty())->to_be(true);
-        expect((new File(__FILE__))->isEmpty())->to_be(false);
+        expect($this->makeFake()->isEmpty())->to_be(true);
+        expect($this->makeReal()->isEmpty())->to_be(false);
     }
 
     /**
@@ -18,8 +18,8 @@ class FileTest extends \TestCase {
      */
     public function it_reads_a_file()
     {
-        expect((new File(uniqid()))->read())->to_be(null);
-        expect((new File(__FILE__))->read())->to_be_a('string');
+        expect($this->makeFake()->read())->to_be(null);
+        expect($this->makeReal()->read())->to_be_a('string');
     }
 
     /**
@@ -27,9 +27,9 @@ class FileTest extends \TestCase {
      */
     public function it_loads_a_PHP_file()
     {
-        expect((new File(uniqid()))->load())->to_be(false);
+        expect($this->makeFake()->load())->to_be(false);
 
-        $file = new File($this->setUpVfs() . ds() . 'example');
+        $file = path(ds($this->setUpVfs(), 'example'))->asFile();
 
         expect($file->rewrite('<?php return 123;'))->to_be(true);
         expect($file->load())->to_be(123);
@@ -40,17 +40,17 @@ class FileTest extends \TestCase {
      */
     public function it_splits_file_contents_into_lines()
     {
-        expect((new File(uniqid()))->lines())->to_be([]);
-        expect((new File(__FILE__))->lines())->not_to_have_length(0);
+        expect($this->makeFake()->lines())->to_be([]);
+        expect($this->makeReal()->lines())->not_to_have_length(0);
     }
 
     /**
      * @test
      */
-    public function it_returns_file_size()
+    public function it_returns_the_file_size()
     {
-        expect((new File(uniqid()))->size())->to_be(0);
-        expect((new File(__FILE__))->size())->to_be_above(0);
+        expect($this->makeFake()->size())->to_be(0);
+        expect($this->makeReal()->size())->to_be_above(0);
 
         expect($this->makeReal()->size(function($size) {
             return is_int($size);
@@ -62,10 +62,10 @@ class FileTest extends \TestCase {
      */
     public function it_tells_whether_given_file_contains_some_string()
     {
-        expect((new File(uniqid()))->contains('foo'))->to_be(false);
-        expect((new File(__FILE__))->contains(uniqid()))->to_be(false);
+        expect($this->makeFake()->contains('foo'))->to_be(false);
+        expect($this->makeReal()->contains(uniqid()))->to_be(false);
 
-        expect((new File(__FILE__))->contains('contains'))->to_be(true);
+        expect($this->makeReal(__FILE__)->contains('contains'))->to_be(true);
     }
 
     /**
@@ -73,9 +73,9 @@ class FileTest extends \TestCase {
      */
     public function it_returns_last_modification_time()
     {
-        expect((new File(uniqid()))->lastModified())->to_be(null);
-        expect((new File(__FILE__))->lastModified())->to_be_an('integer');
-        expect((new File(__FILE__))->lastModified('H:i:s Y-m-d'))->to_be_a('string');
+        expect($this->makeFake()->lastModified())->to_be(null);
+        expect($this->makeReal()->lastModified())->to_be_an('integer');
+        expect($this->makeReal()->lastModified('H:i:s Y-m-d'))->to_be_a('string');
     }
 
     /**
@@ -83,8 +83,8 @@ class FileTest extends \TestCase {
      */
     public function it_tells_whether_file_contents_matches_given_regular_expression()
     {
-        expect((new File(uniqid()))->matches('/^(.+)$/'))->to_be(false);
-        expect((new File(__FILE__))->matches('/class\s(\w+)/'))->to_be(true);
+        expect($this->makeFake()->matches('/^(.+)$/'))->to_be(false);
+        expect($this->makeReal()->matches('/class\s(\w+)/'))->to_be(true);
     }
 
     /**
@@ -92,8 +92,8 @@ class FileTest extends \TestCase {
      */
     public function it_performs_searching_in_file_contents()
     {
-        expect((new File(uniqid()))->search('/^(.+)$/'))->to_be([]);
-        expect((new File(__FILE__))->search('/^(.+)$/'))->not_to_have_length(0);
+        expect($this->makeFake()->search('/^(.+)$/'))->to_be([]);
+        expect($this->makeReal()->search('/^(.+)$/'))->not_to_have_length(0);
     }
 
     /**
@@ -101,7 +101,7 @@ class FileTest extends \TestCase {
      */
     public function it_rewrites_file_contents()
     {
-        $file = new File($this->setUpVfs() . ds() . 'example');
+        $file = path(ds($this->setUpVfs(), 'example'))->asFile();
 
         expect($file->rewrite('foo'))->to_be(true);
         expect($file->read())->to_be('foo');
@@ -118,7 +118,7 @@ class FileTest extends \TestCase {
      */
     public function it_appends_and_prepends_contents()
     {
-        $file = new File($this->setUpVfs() . ds() . 'example');
+        $file = path(ds($this->setUpVfs(), 'example'))->asFile();
 
         expect($file->rewrite('foo'))->to_be(true);
         expect($file->read())->to_be('foo');
@@ -135,9 +135,9 @@ class FileTest extends \TestCase {
      */
     public function it_removes_a_file()
     {
-        expect((new File(uniqid()))->remove())->to_be(false);
+        expect($this->makeFake()->remove())->to_be(false);
 
-        $file = new File($this->setUpVfs() . ds() . 'example');
+        $file = path(ds($this->setUpVfs(), 'example'))->asFile();
 
         expect($file->rewrite('foo'))->to_be(true);
         expect($file->read())->to_be('foo');
@@ -151,13 +151,13 @@ class FileTest extends \TestCase {
     public function it_copies_and_moves_files()
     {
         $dir = $this->setUpVfs() . ds();
-        $file = new File($dir . 'foo');
+        $file = path($dir . 'foo')->asFile();
 
         expect($file->copyTo($dir . 'bar'))->to_be(false);
         expect($file->rewrite('123'))->to_be(true);
         expect($file->copyTo($dir . 'bar'))->to_be(true);
 
-        $anotherFile = new File($dir . 'baz');
+        $anotherFile = path($dir . 'baz')->asFile();
 
         expect($anotherFile->read())->to_be(null);
         expect($file->moveTo($dir . 'baz'))->to_be(true);
