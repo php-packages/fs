@@ -21,7 +21,7 @@ class Path {
      */
     public function path()
     {
-        return $this->path;
+        return (string) $this->path;
     }
 
     /**
@@ -35,7 +35,7 @@ class Path {
     /**
      * @return string
      */
-    public function shortPath()
+    public function short()
     {
         return basename($this->path);
     }

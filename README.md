@@ -6,7 +6,7 @@ In active development.
 ## Path
 
 - #path
-- #shortPath
+- #short
 - #withoutName
 - #asFile
 - #isFile

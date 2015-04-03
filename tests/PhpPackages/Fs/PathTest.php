@@ -18,8 +18,8 @@ class PathTest extends \TestCase {
      */
     public function it_returns_short_path()
     {
-        expect((new Path('foo'))->shortPath())->to_be('foo');
-        expect((new Path('foo' . ds() . 'bar'))->shortPath())->to_be('bar');
+        expect((new Path('foo'))->short())->to_be('foo');
+        expect((new Path(ds('foo', 'bar')))->short())->to_be('bar');
     }
 
     /**
