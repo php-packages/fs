@@ -79,16 +79,18 @@ class PathTest extends \TestCase {
      */
     public function it_detects_a_file()
     {
-        expect((new Path(uniqid()))->isFile())->to_be(false);
-        expect((new Path(__FILE__))->isFile())->to_be(true);
+        expect($this->makeFake()->isFile())->to_be(false);
+        expect($this->makeReal(__FILE__)->isFile())->to_be(true);
     }
 
     /**
      * @test
      */
-    public function it_returns_Dir_instance()
+    public function it_returns_a_Dir_instance()
     {
-        expect($file = (new Path('foo'))->asDir())->to_be_a('PhpPackages\\Fs\\Dir');
+        $file = path('foo')->asDir();
+
+        expect($file)->to_be_a('PhpPackages\\Fs\\Dir');
         expect($file->path())->to_be('foo');
     }
 
@@ -97,24 +99,24 @@ class PathTest extends \TestCase {
      */
     public function it_checks_if_item_is_readable()
     {
-        expect((new Path(uniqid()))->isReadable())->to_be(false);
-        expect((new Path(__DIR__))->isReadable())->to_be(true);
-        expect((new Path(__FILE__))->isReadable())->to_be(true);
+        expect($this->makeFake()->isReadable())->to_be(false);
+        expect($this->makeReal(__DIR__)->isReadable())->to_be(true);
+        expect($this->makeReal(__FILE__)->isReadable())->to_be(true);
     }
 
     /**
      * @test
      */
-    public function it_checks_if_item_is_a_directory()
+    public function it_detects_a_directory()
     {
-        expect((new Path(uniqid()))->isDir())->to_be(false);
-        expect((new Path(__DIR__))->isDir())->to_be(true);
+        expect($this->makeFake()->isDir())->to_be(false);
+        expect($this->makeReal(__DIR__)->isDir())->to_be(true);
     }
 
     /**
      * @test
      */
-    public function it_joins_two_path_strings()
+    public function it_merges_two_path_strings()
     {
         expect(path('foo')->join('bar')->path())->to_be(ds('foo', 'bar'));
         expect(path('foo' . ds())->join('bar')->path())->to_be(ds('foo', 'bar'));
@@ -133,7 +135,7 @@ class PathTest extends \TestCase {
     /**
      * @test
      */
-    public function it_resolves_path()
+    public function it_resolves_the_path()
     {
         expect(path(ds('..', 'fs', '.', '..', 'fs'))->full()->resolve()->path())
             ->to_be(getcwd());
