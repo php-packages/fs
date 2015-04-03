@@ -48,6 +48,6 @@ In active development.
 - #matches
 - #search
 - #remove
-- #copy?
-- #move?
+- #copyTo
+- #moveTo
 - #lastModified

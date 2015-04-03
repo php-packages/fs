@@ -84,6 +84,32 @@ class File extends Path {
     }
 
     /**
+     * @param string $to
+     * @return bool
+     */
+    public function copyTo($to)
+    {
+        if ( ! $this->isFile()) {
+            return false;
+        }
+
+        return copy($this->path, $to);
+    }
+
+    /**
+     * @param string $to
+     * @return bool
+     */
+    public function moveTo($to)
+    {
+        if ( ! $this->isFile()) {
+            return false;
+        }
+
+        return (path($to)->asFile()->rewrite($this->read()) and $this->remove());
+    }
+
+    /**
      * @return array
      */
     public function lines()
