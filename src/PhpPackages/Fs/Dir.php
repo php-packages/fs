@@ -1,9 +1,9 @@
 <?php namespace PhpPackages\Fs;
 
 use RecursiveDirectoryIterator,
+    RecursiveIteratorIterator, // Cool naming.
     FilesystemIterator,
-    SplFileInfo,
-    RecursiveIteratorIterator; // Cool naming.
+    SplFileInfo;
 
 class Dir extends Path {
 
@@ -13,7 +13,8 @@ class Dir extends Path {
     protected $iterator = null;
 
     /**
-     * {@inheritdoc}
+     * @param string $path
+     * @return Dir
      */
     public function __construct($path)
     {
@@ -37,10 +38,10 @@ class Dir extends Path {
      */
     public function make()
     {
-        if ( ! $this->isReadable()) {
+        if ( ! $this->isDir()) {
             $result = mkdir($this->path);
 
-            $this->createIterator();
+            $this->reload();
 
             return $result;
         }
@@ -49,7 +50,7 @@ class Dir extends Path {
     }
 
     /**
-     * @param string $path
+     * @param string|Path $path
      * @return bool
      */
     public function contains($path)
@@ -62,7 +63,7 @@ class Dir extends Path {
     }
 
     /**
-     * @param string $path
+     * @param string|Path $path
      * @return Path|null
      */
     public function item($path)
@@ -139,7 +140,7 @@ class Dir extends Path {
     }
 
     /**
-     * @param string $item
+     * @param string|Path $item
      * @return void
      */
     protected function doRemove($item = '')
@@ -156,33 +157,33 @@ class Dir extends Path {
     }
 
     /**
-     * @param string $path
+     * @param string|Path $path
      * @return bool
      */
     public function copyTo($path)
     {
         $result = $this->doCopy($path);
 
-        $this->createIterator();
+        $this->reload();
 
         return $result;
     }
 
     /**
-     * @param string $path
+     * @param string|Path $path
      * @return bool
      */
     public function copyFrom($path)
     {
         $result = path($path)->asDir()->copyTo($this->path);
 
-        $this->createIterator();
+        $this->reload();
 
         return $result;
     }
 
     /**
-     * @param string $to
+     * @param string|Path $to
      * @param string|null $from
      * @return bool
      */
@@ -208,7 +209,7 @@ class Dir extends Path {
     }
 
     /**
-     * @param string $path
+     * @param string|Path $path
      * @return bool
      */
     public function moveTo($path)

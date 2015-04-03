@@ -129,7 +129,7 @@ class Path {
     }
 
     /**
-     * @param string $path
+     * @param string|Path $path
      * @return object
      */
     public function join($path)
@@ -142,7 +142,7 @@ class Path {
     }
 
     /**
-     * @param string|null $parentDir
+     * @param string|Path|null $parentDir
      * @return object
      */
     public function full($parentDir = null)

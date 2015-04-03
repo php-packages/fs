@@ -84,7 +84,7 @@ class File extends Path {
     }
 
     /**
-     * @param string $to
+     * @param string|Path $to
      * @return bool
      */
     public function copyTo($to)
@@ -93,11 +93,11 @@ class File extends Path {
             return false;
         }
 
-        return copy($this->path, $to);
+        return copy($this->path, (string) $to);
     }
 
     /**
-     * @param string $to
+     * @param string|Path $to
      * @return bool
      */
     public function moveTo($to)
