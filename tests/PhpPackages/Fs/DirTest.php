@@ -9,8 +9,8 @@ class DirTest extends \TestCase {
      */
     public function it_tells_if_directory_contains_no_items()
     {
-        expect((new Dir(uniqid()))->isEmpty())->to_be(true);
-        expect((new Dir(__DIR__))->isEmpty())->to_be(false);
+        expect($this->makeFake()->isEmpty())->to_be(true);
+        expect($this->makeReal(__DIR__)->isEmpty())->to_be(false);
     }
 
     /**
@@ -18,8 +18,8 @@ class DirTest extends \TestCase {
      */
     public function it_checks_if_directory_contains_an_item()
     {
-        expect((new Dir(uniqid()))->contains(uniqid()))->to_be(false);
-        expect((new Dir(__DIR__))->contains(basename(__FILE__)))->to_be(true);
+        expect($this->makeFake()->contains(uniqid()))->to_be(false);
+        expect($this->makeReal(__DIR__)->contains(basename(__FILE__)))->to_be(true);
     }
 
     /**
@@ -27,14 +27,12 @@ class DirTest extends \TestCase {
      */
     public function it_returns_items_stored_in_the_directory()
     {
-        $dir = new Dir(__DIR__);
+        $dir = path(__DIR__)->asDir();
+        $path = $dir->item(basename(__FILE__));
 
         expect($dir->item(uniqid()))->to_be(null);
-
-        $path = $dir->item(basename(__FILE__));
         expect($path->path())->to_be(__FILE__);
-
-        expect((new Dir(uniqid()))->item(uniqid()))->to_be(null);
+        expect($this->makeFake()->item('foo'))->to_be(null);
     }
 
     /**
@@ -42,8 +40,8 @@ class DirTest extends \TestCase {
      */
     public function it_returns_all_items()
     {
-        expect((new Dir(uniqid()))->all())->to_be([]);
-        expect((new Dir(__DIR__))->all())->not_to_be([]);
+        expect($this->makeFake()->all())->to_be([]);
+        expect($this->makeReal(__DIR__)->all())->not_to_be([]);
     }
 
     /**
@@ -51,7 +49,7 @@ class DirTest extends \TestCase {
      */
     public function it_returns_all_files()
     {
-        $dir = new Dir(__DIR__);
+        $dir = path(__DIR__)->asDir();
 
         expect($dir->files())->not_to_have_length(0);
         expect($dir->files())->to_include(basename(__FILE__));
@@ -62,7 +60,7 @@ class DirTest extends \TestCase {
      */
     public function it_returns_all_dirs()
     {
-        expect((new Dir(__DIR__))->dirs())->not_to_contain(basename(__FILE__));
+        expect($this->makeReal(__DIR__)->dirs())->not_to_contain(basename(__FILE__));
     }
 
     /**
@@ -70,11 +68,11 @@ class DirTest extends \TestCase {
      */
     public function it_removes_a_directory()
     {
-        expect((new Dir(uniqid()))->remove())->to_be(false);
-        expect((new Dir($path = $this->getPath()))->remove())->to_be(false);
+        expect($this->makeFake()->remove())->to_be(false);
+        expect(path($path = $this->getPath())->asDir()->remove())->to_be(false);
 
-        expect((new Dir($path))->remove(true))->to_be(true);
-        expect((new Path($path))->isReadable())->to_be(false);
+        expect(path($path)->asDir()->remove(true))->to_be(true);
+        expect(path($path)->isReadable())->to_be(false);
     }
 
     /**
@@ -82,10 +80,10 @@ class DirTest extends \TestCase {
      */
     public function it_copies_a_directory()
     {
-        $dir = new Dir($this->getPath(false));
+        $dir = path($this->getPath(false))->asDir();
 
         expect($dir->all())->to_have_length(0);
-        expect($dir->copyFrom(__DIR__ . ds() . '..'))->to_be(true);
+        expect($dir->copyFrom(ds(__DIR__, '..')))->to_be(true);
         expect($dir->all())->not_to_have_length(0);
     }
 
@@ -94,13 +92,13 @@ class DirTest extends \TestCase {
      */
     public function it_moves_a_directory()
     {
-        $dir = new Dir('/tmp/' . uniqid());
+        $dir = path(ds('', 'tmp', uniqid()))->asDir();
 
         expect($dir->make())->to_be(true);
         expect($dir->copyFrom(__DIR__))->to_be(true);
 
         // Prepare another directory.
-        $anotherDir = new Dir($this->getPath(false));
+        $anotherDir = path($this->getPath(false))->asDir();
 
         // Test.
         expect($anotherDir->all())->to_have_length(0);
@@ -114,7 +112,7 @@ class DirTest extends \TestCase {
      */
     public function it_makes_a_directory()
     {
-        $dir = new Dir($this->getPath(false));
+        $dir = path($this->getPath(false))->asDir();
 
         expect($dir->isReadable())->to_be(true);
         expect($dir->remove(true))->to_be(true);
@@ -131,12 +129,12 @@ class DirTest extends \TestCase {
      */
     protected function getPath($copy = true)
     {
-        $dir = VFS::setup('fs-test');
+        $dir = VFS::setup('test');
 
         if ($copy) {
             VFS::copyFromFileSystem(__DIR__, $dir);
         }
 
-        return VFS::url('fs-test');
+        return VFS::url('test');
     }
 }
