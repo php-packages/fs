@@ -122,15 +122,16 @@ class File extends Path {
     }
 
     /**
-     * @return int
+     * @param callable|null $callback
+     * @return int|mixed
      */
-    public function size()
+    public function size(callable $callback = null)
     {
         if ( ! $this->isFile()) {
             return 0;
         }
 
-        return filesize($this->path);
+        return is_null($callback) ? filesize($this->path) : $callback(filesize($this->path));
     }
 
     /**

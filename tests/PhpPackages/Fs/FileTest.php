@@ -51,6 +51,10 @@ class FileTest extends \TestCase {
     {
         expect((new File(uniqid()))->size())->to_be(0);
         expect((new File(__FILE__))->size())->to_be_above(0);
+
+        expect($this->makeReal()->size(function($size) {
+            return is_int($size);
+        }))->to_be(true);
     }
 
     /**
