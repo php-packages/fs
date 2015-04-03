@@ -32,6 +32,14 @@ class PathTest extends \TestCase {
     /**
      * @test
      */
+    public function it_returns_path_parts()
+    {
+        expect(path(ds('foo', 'bar', 'baz'))->parts())->to_be(['foo', 'bar', 'baz']);
+    }
+
+    /**
+     * @test
+     */
     public function it_returns_short_path()
     {
         expect((new Path('foo'))->short())->to_be('foo');

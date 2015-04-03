@@ -9,6 +9,7 @@ In active development.
 - #short
 - #shorten
 - #skipName
+- #parts
 - #asFile
 - #isFile
 - #asDir

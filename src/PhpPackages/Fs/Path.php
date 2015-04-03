@@ -49,6 +49,14 @@ class Path {
     }
 
     /**
+     * @return array
+     */
+    public function parts()
+    {
+        return explode(ds(), $this->path);
+    }
+
+    /**
      * @return string
      */
     public function short()
