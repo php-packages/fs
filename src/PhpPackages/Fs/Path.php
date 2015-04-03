@@ -37,7 +37,7 @@ class Path {
      */
     public function isAbsolute()
     {
-        return $this->path[0] == ds();
+        return (strlen($this->path) > 0 and $this->path[0] == ds());
     }
 
     /**
@@ -79,7 +79,7 @@ class Path {
      */
     public function skipName()
     {
-        $nameParts = explode(ds(), $this->path);
+        $nameParts = $this->parts();
 
         if (count($nameParts) > 1) {
             array_pop($nameParts);
@@ -101,7 +101,7 @@ class Path {
      */
     public function isFile()
     {
-        return (is_readable($this->path) and is_file($this->path));
+        return ($this->isReadable() and is_file($this->path));
     }
 
     /**
@@ -117,7 +117,7 @@ class Path {
      */
     public function isDir()
     {
-        return (is_readable($this->path) and is_dir($this->path));
+        return ($this->isReadable() and is_dir($this->path));
     }
 
     /**
@@ -134,7 +134,7 @@ class Path {
      */
     public function join($path)
     {
-        $lastChar = substr($this->path, strlen($this->path) - 1);
+        $lastChar = $this->path[strlen($this->path) - 1];
 
         $this->path .= (ds() == $lastChar) ? $path : (ds() . $path);
 
@@ -147,12 +147,10 @@ class Path {
      */
     public function full($parentDir = null)
     {
-        $firstChar = substr($this->path, 0, 1);
-
-        if (ds() != $firstChar) {
+        if ( ! $this->isAbsolute()) {
             $parentDir = $parentDir ?: getcwd();
 
-            $this->path = (new static($parentDir))->join($this->path)->path();
+            $this->path = (string) path($parentDir)->join($this->path);
         }
 
         return $this;
