@@ -2,7 +2,11 @@
 
 if ( ! function_exists('ds')) {
     function ds() {
-        return DIRECTORY_SEPARATOR;
+        if (count(func_get_args()) < 1) {
+            return DIRECTORY_SEPARATOR;
+        }
+
+        return implode(ds(), func_get_args());
     }
 }
 
