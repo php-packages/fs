@@ -25,10 +25,18 @@ class PathTest extends \TestCase {
     /**
      * @test
      */
-    public function it_skips_the_last_part()
+    public function it_shortens_the_path()
     {
-        expect((new Path('foo'))->withoutName())->to_be('foo');
-        expect((new Path('foo' . ds() . 'bar'))->withoutName())->to_be('foo');
+        expect((new Path(ds('foo', 'bar')))->shorten()->path())->to_be('bar');
+    }
+
+    /**
+     * @test
+     */
+    public function it_skips_the_name()
+    {
+        expect((new Path('foo'))->skipName())->to_be('foo');
+        expect((new Path(ds('foo', 'bar')))->skipName())->to_be('foo');
     }
 
     /**

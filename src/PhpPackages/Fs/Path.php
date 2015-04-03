@@ -41,9 +41,19 @@ class Path {
     }
 
     /**
+     * @return object
+     */
+    public function shorten()
+    {
+        $this->path = basename($this->path);
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
-    public function withoutName()
+    public function skipName()
     {
         $nameParts = explode(ds(), $this->path);
 

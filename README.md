@@ -7,7 +7,8 @@ In active development.
 
 - #path
 - #short
-- #withoutName
+- #shorten
+- #skipName
 - #asFile
 - #isFile
 - #asDir
