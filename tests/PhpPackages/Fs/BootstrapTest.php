@@ -11,5 +11,6 @@ class BootstrapTest extends \TestCase {
         expect(ds('foo', 'bar', 'baz'))->to_be('foo' . ds() . 'bar' . ds() . 'baz');
 
         expect(path('foo'))->to_be_a('PhpPackages\\Fs\\Path');
+        expect((string) path(path('foo')))->to_be('foo');
     }
 }
