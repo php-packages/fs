@@ -79,9 +79,10 @@ class Dir extends Path implements IteratorAggregate {
 
     /**
      * @param callable|null $filter
+     * @param bool $fullPath
      * @return array
      */
-    public function all(callable $filter = null)
+    public function all(callable $filter = null, $fullPath = false)
     {
         $items = [];
 
@@ -91,7 +92,7 @@ class Dir extends Path implements IteratorAggregate {
 
         foreach ($this->iterator as $item) {
             if (is_null($filter) or $filter($item)) {
-                $items[] = (string) $item;
+                $items[] = $fullPath ? (string) $item : $item->getFilename();
             }
         }
 

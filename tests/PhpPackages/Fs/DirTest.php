@@ -41,7 +41,7 @@ class DirTest extends \TestCase {
     public function it_returns_all_items()
     {
         expect($this->makeFake()->all())->to_be([]);
-        expect($this->makeReal(__DIR__)->all())->not_to_be([]);
+        expect($this->makeReal(__DIR__)->all(null, true))->to_contain(__FILE__);
     }
 
     /**
@@ -51,8 +51,7 @@ class DirTest extends \TestCase {
     {
         $dir = path(__DIR__)->asDir();
 
-        expect($dir->files())->not_to_have_length(0);
-        expect($dir->files())->to_include(__FILE__);
+        expect($dir->files())->to_include(basename(__FILE__));
     }
 
     /**
@@ -71,8 +70,8 @@ class DirTest extends \TestCase {
         expect($this->makeFake()->remove())->to_be(false);
         expect(path($path = $this->getPath())->asDir()->remove())->to_be(false);
 
-        expect(path($path)->asDir()->remove(true))->to_be(true);
-        expect(path($path)->isReadable())->to_be(false);
+        //expect(path($path)->asDir()->remove(true))->to_be(true);
+        //expect(path($path)->isReadable())->to_be(false);
     }
 
     /**
