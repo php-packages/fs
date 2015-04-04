@@ -239,7 +239,7 @@ class Dir extends Path implements IteratorAggregate {
      */
     public function getIterator()
     {
-        return new ArrayIterator($this->files());
+        return new ArrayIterator($this->files(true));
     }
 
     /**
