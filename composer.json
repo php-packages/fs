@@ -1,6 +1,8 @@
 {
     "name": "php-packages/fs",
     "description": "File and directory management in PHP 5.5+ done right.",
+    "homepage": "https://github.com/php-packages/fs",
+    "keywords": ["filesystem", "library", "directory", "file", "API"],
     "license": "MIT",
 
     "require": {
