@@ -91,7 +91,7 @@ class Dir extends Path implements IteratorAggregate {
 
         foreach ($this->iterator as $item) {
             if (is_null($filter) or $filter($item)) {
-                $items[] = $item->getFilename();
+                $items[] = (string) $item;
             }
         }
 

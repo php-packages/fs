@@ -52,7 +52,7 @@ class DirTest extends \TestCase {
         $dir = path(__DIR__)->asDir();
 
         expect($dir->files())->not_to_have_length(0);
-        expect($dir->files())->to_include(basename(__FILE__));
+        expect($dir->files())->to_include(__FILE__);
     }
 
     /**
@@ -60,7 +60,7 @@ class DirTest extends \TestCase {
      */
     public function it_returns_all_dirs()
     {
-        expect($this->makeReal(__DIR__)->dirs())->not_to_contain(basename(__FILE__));
+        expect($this->makeReal(__DIR__)->dirs())->not_to_contain(__FILE__);
     }
 
     /**
