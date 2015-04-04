@@ -3,9 +3,11 @@
 use RecursiveDirectoryIterator,
     RecursiveIteratorIterator, // Cool naming.
     FilesystemIterator,
-    SplFileInfo;
+    SplFileInfo,
+    IteratorAggregate,
+    ArrayIterator;
 
-class Dir extends Path {
+class Dir extends Path implements IteratorAggregate {
 
     /**
      * @var RecursiveIteratorIterator|null
@@ -227,6 +229,14 @@ class Dir extends Path {
         $this->createIterator();
 
         return $this;
+    }
+
+    /**
+     * @return RecursiveIteratorIterator
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->files());
     }
 
     /**
