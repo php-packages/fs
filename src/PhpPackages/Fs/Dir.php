@@ -100,23 +100,25 @@ class Dir extends Path implements IteratorAggregate {
     }
 
     /**
+     * @param bool $fullPath
      * @return array
      */
-    public function files()
+    public function files($fullPath = false)
     {
         return $this->all(function(SplFileInfo $item) {
             return $item->isFile();
-        });
+        }, $fullPath);
     }
 
     /**
+     * @param bool $fullPath
      * @return array
      */
-    public function dirs()
+    public function dirs($fullPath = false)
     {
         return $this->all(function(SplFileInfo $item) {
             return $item->isDir();
-        });
+        }, $fullPath);
     }
 
     /**

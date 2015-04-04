@@ -32,6 +32,7 @@ class DirTest extends \TestCase {
 
         expect($dir->item(uniqid()))->to_be(null);
         expect($path->path())->to_be(__FILE__);
+
         expect($this->makeFake()->item('foo'))->to_be(null);
     }
 
@@ -41,7 +42,11 @@ class DirTest extends \TestCase {
     public function it_returns_all_items()
     {
         expect($this->makeFake()->all())->to_be([]);
-        expect($this->makeReal(__DIR__)->all(null, true))->to_contain(__FILE__);
+
+        $dir = path(__DIR__)->asDir();
+
+        expect($dir->all())->to_contain(basename(__FILE__));
+        expect($dir->all(null, true))->to_contain(__FILE__);
     }
 
     /**
@@ -52,6 +57,7 @@ class DirTest extends \TestCase {
         $dir = path(__DIR__)->asDir();
 
         expect($dir->files())->to_include(basename(__FILE__));
+        expect($dir->files(true))->to_include(__FILE__);
     }
 
     /**
@@ -59,7 +65,10 @@ class DirTest extends \TestCase {
      */
     public function it_returns_all_dirs()
     {
-        expect($this->makeReal(__DIR__)->dirs())->not_to_contain(__FILE__);
+        $dir = path(__DIR__)->asDir();
+
+        expect($dir->dirs())->not_to_contain(basename(__FILE__));
+        expect($dir->dirs(true))->not_to_contain(__FILE__);
     }
 
     /**
@@ -70,8 +79,8 @@ class DirTest extends \TestCase {
         expect($this->makeFake()->remove())->to_be(false);
         expect(path($path = $this->getPath())->asDir()->remove())->to_be(false);
 
-        //expect(path($path)->asDir()->remove(true))->to_be(true);
-        //expect(path($path)->isReadable())->to_be(false);
+        expect(path($path)->asDir()->remove(true))->to_be(true);
+        expect(path($path)->isReadable())->to_be(false);
     }
 
     /**
@@ -83,6 +92,7 @@ class DirTest extends \TestCase {
 
         expect($dir->all())->to_have_length(0);
         expect($dir->copyFrom(ds(__DIR__, '..')))->to_be(true);
+
         expect($dir->all())->not_to_have_length(0);
     }
 
@@ -102,7 +112,9 @@ class DirTest extends \TestCase {
         // Test.
         expect($anotherDir->all())->to_have_length(0);
         expect($dir->all())->not_to_have_length(0);
+
         expect($dir->moveTo($anotherDir->path()))->to_be(true);
+
         expect($anotherDir->reload()->all())->not_to_have_length(0);
     }
 
@@ -116,6 +128,7 @@ class DirTest extends \TestCase {
         expect($dir->isReadable())->to_be(true);
         expect($dir->remove(true))->to_be(true);
         expect($dir->isReadable())->to_be(false);
+
         expect($dir->make())->to_be(true);
         expect($dir->isReadable())->to_be(true);
 
