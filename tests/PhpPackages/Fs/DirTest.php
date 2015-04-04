@@ -7,6 +7,17 @@ class DirTest extends \TestCase {
     /**
      * @test
      */
+    public function it_is_traversable()
+    {
+        $dir = $this->makeFake();
+
+        expect($dir)->to_respond_to('getIterator');
+        expect($dir->getIterator())->to_be_a('ArrayIterator');
+    }
+
+    /**
+     * @test
+     */
     public function it_tells_if_directory_contains_no_items()
     {
         expect($this->makeFake()->isEmpty())->to_be(true);
