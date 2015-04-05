@@ -1,4 +1,4 @@
-# Fs [![Build Status](https://travis-ci.org/php-packages/fs.svg?branch=master)](https://travis-ci.org/php-packages/fs)
+# Fs 0.1.0 [![Build Status](https://travis-ci.org/php-packages/fs.svg?branch=master)](https://travis-ci.org/php-packages/fs)
 
 File and directory management in PHP 5.5+ done right.
 Check out [the wiki](https://github.com/php-packages/fs/wiki) for more info!
